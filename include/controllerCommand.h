@@ -194,7 +194,7 @@ void notify()
 
 void onConnect(){
     Serial.println("Connected.");
-    Ps3.setPlayer(7);
+    
 
 }
 
@@ -269,7 +269,7 @@ void espExecuteCommand(){
         isMoving = true;
     }
     // ban
-    if(Ps3.event.button_down.circle){
+    if(Ps3.event.button_down.r3 || Ps3.event.button_down.l3){
         fire();
     }
     autoPull();

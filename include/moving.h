@@ -1,7 +1,7 @@
 #include <PCF8575.h>
 
-short topLeftTolerance = 10;
-short topRightTolerance = -8;
+short topLeftTolerance = 0;
+short topRightTolerance = -16;
 short bottomLeftTolerance = -21;
 short bottomRightTolerance = -11;
 
@@ -25,7 +25,7 @@ class Motor {
             expander.pinMode(RightPin, OUTPUT);
             pinMode(PwmChannel, OUTPUT);
             Serial.println("this");
-            ledcSetup(PwmChannel, 30000, 8);
+            ledcSetup(PwmChannel, 20000, 8);
             ledcAttachPin(PwmPin, PwmChannel);
         }
         void rotateLeft(short speed){
@@ -47,14 +47,16 @@ class Motor {
         }
 };
 
-Motor topLeft(P7, P6, 32, 0);
-Motor bottomLeft(P4, P5, 33, 1);
-Motor topRight(P2, P3, 25, 2);
-Motor bottomRight(P1, P0, 26, 3);
+Motor topLeft(P3, P2, 25, 0);
+Motor bottomLeft(P1, P0, 26, 1);
+Motor topRight(P7, P6, 32, 2);
+Motor bottomRight(P5, P4, 33, 3);
 
 void robotRotateLeft(short speed){
     topLeft.rotateLeft(speed - topLeftTolerance);
     topRight.rotateLeft(speed - topRightTolerance);
+    Serial.println("this");
+    Serial.println(speed - topRightTolerance);
     bottomLeft.rotateRight(speed - bottomLeftTolerance);
     bottomRight.rotateRight(speed - bottomRightTolerance);
 }
@@ -62,6 +64,8 @@ void robotRotateLeft(short speed){
 void robotRotateRight(short speed){
     topLeft.rotateRight(speed - topLeftTolerance);
     topRight.rotateRight(speed - topRightTolerance);
+    Serial.println("this");
+    Serial.println(speed - topRightTolerance);
     bottomLeft.rotateLeft(speed - bottomLeftTolerance);
     bottomRight.rotateLeft(speed - bottomRightTolerance);
 }
@@ -69,6 +73,8 @@ void robotRotateRight(short speed){
 void robotRunForward(short speed){
     topLeft.rotateRight(speed - topLeftTolerance);
     topRight.rotateLeft(speed - topRightTolerance);
+    Serial.println("this");
+    Serial.println(speed - topRightTolerance);
     bottomLeft.rotateLeft(speed - bottomLeftTolerance);
     bottomRight.rotateRight(speed - bottomRightTolerance);
 }
