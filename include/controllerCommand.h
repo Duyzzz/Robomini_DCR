@@ -208,8 +208,19 @@ void controllerSetup(){
 void espExecuteCommand(){
     // moving
     if(true){
+        if(blockRunForward == false){
+            if(Ps3.data.button.up && (Ps3.data.button.l1 || Ps3.data.button.r1)){
+                robotRunForward(highSpeed);
+                Serial.println("fast up");
+                isMoving = false;
+            } else if(Ps3.data.button.up){
+                Serial.println("slow up");
+                robotRunForward(lowSpeed - 10);
+                isMoving = false;
+            }
+        }
         if(Ps3.data.button.l2 && (Ps3.data.button.l1 || Ps3.data.button.r1) ){
-            robotRotateLeft(highSpeed);
+            robotRotateLeft(highSpeed - 90);
             Serial.println("fast rotate left");
             isMoving = false;
         } else if(Ps3.data.button.l2){
@@ -218,21 +229,12 @@ void espExecuteCommand(){
             isMoving = false;
         }
         else if(Ps3.data.button.r2 && (Ps3.data.button.l1 || Ps3.data.button.r1)){
-            robotRotateRight(highSpeed);
+            robotRotateRight(highSpeed - 90);
             Serial.println("fast rotate right");
             isMoving = false;
         } else if(Ps3.data.button.r2){
             robotRotateRight(lowSpeed);
             Serial.println("slow rotate right");
-            isMoving = false;
-        }
-        else if(Ps3.data.button.up && (Ps3.data.button.l1 || Ps3.data.button.r1)){
-            robotRunForward(highSpeed);
-            Serial.println("fast up");
-            isMoving = false;
-        } else if(Ps3.data.button.up){
-            Serial.println("slow up");
-            robotRunForward(lowSpeed);
             isMoving = false;
         }
         else if(Ps3.data.button.down && (Ps3.data.button.l1 || Ps3.data.button.r1)){
@@ -262,11 +264,11 @@ void espExecuteCommand(){
             robotMoveRight(lowSpeed);
             isMoving = false;
         }
-        
     }
+    infraredDetermine();
     if(isMoving == false && !Ps3.data.button.r2 && !Ps3.data.button.l2 && !Ps3.data.button.right && !Ps3.data.button.left && !Ps3.data.button.down && !Ps3.data.button.up){
-        carStop();
         isMoving = true;
+        carStop();
     }
     // ban
     if(Ps3.event.button_down.r3 || Ps3.event.button_down.l3){

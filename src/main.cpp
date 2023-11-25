@@ -12,5 +12,5 @@ void setup()
 void loop()
 {
     espExecuteCommand();
-    delay(1);
+    delay(10);
 }

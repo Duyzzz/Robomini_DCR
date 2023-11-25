@@ -1,10 +1,11 @@
 #include <PCF8575.h>
 
 short topLeftTolerance = 0;
-short topRightTolerance = -16;
+short topRightTolerance = -11;
 short bottomLeftTolerance = -21;
 short bottomRightTolerance = -11;
-
+const char infraredBlockCollide = 16;
+bool blockRunForward = false;
 PCF8575 expander(0x20);
 
 class Motor {
@@ -55,8 +56,6 @@ Motor bottomRight(P5, P4, 33, 3);
 void robotRotateLeft(short speed){
     topLeft.rotateLeft(speed - topLeftTolerance);
     topRight.rotateLeft(speed - topRightTolerance);
-    Serial.println("this");
-    Serial.println(speed - topRightTolerance);
     bottomLeft.rotateRight(speed - bottomLeftTolerance);
     bottomRight.rotateRight(speed - bottomRightTolerance);
 }
@@ -64,8 +63,6 @@ void robotRotateLeft(short speed){
 void robotRotateRight(short speed){
     topLeft.rotateRight(speed - topLeftTolerance);
     topRight.rotateRight(speed - topRightTolerance);
-    Serial.println("this");
-    Serial.println(speed - topRightTolerance);
     bottomLeft.rotateLeft(speed - bottomLeftTolerance);
     bottomRight.rotateLeft(speed - bottomRightTolerance);
 }
@@ -73,8 +70,6 @@ void robotRotateRight(short speed){
 void robotRunForward(short speed){
     topLeft.rotateRight(speed - topLeftTolerance);
     topRight.rotateLeft(speed - topRightTolerance);
-    Serial.println("this");
-    Serial.println(speed - topRightTolerance);
     bottomLeft.rotateLeft(speed - bottomLeftTolerance);
     bottomRight.rotateRight(speed - bottomRightTolerance);
 }
@@ -105,8 +100,17 @@ void carStop(){
     Serial.println("car stop");
 }
 void carSetup(){
+    pinMode(infraredBlockCollide, INPUT);
     topLeft.setup();
     topRight.setup();
     bottomLeft.setup();
     bottomRight.setup();
+}
+void infraredDetermine(){
+    Serial.println(digitalRead(infraredBlockCollide));
+    if(digitalRead(infraredBlockCollide) == LOW){
+        blockRunForward = true;
+    } else {
+        blockRunForward = false;
+    }
 }
