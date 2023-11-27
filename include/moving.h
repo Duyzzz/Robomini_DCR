@@ -1,9 +1,9 @@
 #include <PCF8575.h>
 
-short topLeftTolerance = 0;
-short topRightTolerance = -11;
-short bottomLeftTolerance = -21;
-short bottomRightTolerance = -11;
+short topLeftTolerance = -7;
+short topRightTolerance = -16;
+short bottomLeftTolerance = -25;
+short bottomRightTolerance = -18;
 const char infraredBlockCollide = 16;
 bool blockRunForward = false;
 PCF8575 expander(0x20);

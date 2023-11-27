@@ -215,12 +215,12 @@ void espExecuteCommand(){
                 isMoving = false;
             } else if(Ps3.data.button.up){
                 Serial.println("slow up");
-                robotRunForward(lowSpeed - 10);
+                robotRunForward(lowSpeed);
                 isMoving = false;
             }
         }
         if(Ps3.data.button.l2 && (Ps3.data.button.l1 || Ps3.data.button.r1) ){
-            robotRotateLeft(highSpeed - 90);
+            robotRotateLeft(highSpeed - 60);
             Serial.println("fast rotate left");
             isMoving = false;
         } else if(Ps3.data.button.l2){
@@ -229,7 +229,7 @@ void espExecuteCommand(){
             isMoving = false;
         }
         else if(Ps3.data.button.r2 && (Ps3.data.button.l1 || Ps3.data.button.r1)){
-            robotRotateRight(highSpeed - 90);
+            robotRotateRight(highSpeed - 60);
             Serial.println("fast rotate right");
             isMoving = false;
         } else if(Ps3.data.button.r2){
