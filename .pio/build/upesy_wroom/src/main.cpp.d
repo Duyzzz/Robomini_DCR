@@ -137,4 +137,4 @@
  C:/Users/DELL/.platformio/packages/framework-arduinoespressif32/cores/esp32/Arduino.h \
  .pio/libdeps/upesy_wroom/PS3\ Controller\ Host/src/Ps3Controller.h \
  .pio/libdeps/upesy_wroom/PS3\ Controller\ Host/src/include/ps3.h \
- include/fire.h
+ include/fire.h include/makeColor.h

@@ -46,6 +46,11 @@ class Motor {
             expander.digitalWrite(RightPin, 0);
             ledcWrite(PwmChannel, 0);
         }
+        void brake(){
+            expander.digitalWrite(LeftPin, 0);
+            expander.digitalWrite(RightPin, 0);
+            ledcWrite(PwmChannel, 255);
+        }
 };
 
 Motor topLeft(P3, P2, 25, 0);
@@ -98,6 +103,13 @@ void carStop(){
     bottomLeft.rotateRight(0);
     bottomRight.rotateRight(0);
     Serial.println("car stop");
+}
+void carBrake(){
+    topLeft.brake();
+    topRight.brake();
+    bottomLeft.brake();
+    bottomRight.brake();
+    Serial.println("brake!");
 }
 void carSetup(){
     pinMode(infraredBlockCollide, INPUT);
